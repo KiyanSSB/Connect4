@@ -15,13 +15,10 @@ namespace Connect4.Services.Implementations
 
         public string solve(string input)
         {
-            this.checkValidInput.checkPrecondition(input);
+            checkValidInput.checkPrecondition(input);
             Board board = new Board(6, 7);
             board.fillBoard(input);
-            board.drawBoard();
-
-
-            return "lmao";
+            return board.whoWins().ToString();
         }
     }
 }
