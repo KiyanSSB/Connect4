@@ -11,55 +11,52 @@ namespace Connect4.Classes.Implementation
             this.BoardMatrix = new char[height, width];
         }
 
-        public int getHeight()
+        public int GetHeight()
         {
             return (this.BoardMatrix.GetLength(0));
         }
 
-        public int getWidth()
+        public int GetWidth()
         {
             return (this.BoardMatrix.GetLength(1));
         }
 
-        public void fillBoard(string input)
+
+        /// <summary>
+        /// Fills the Board Matrix with the values recieved by the input
+        /// </summary>
+        /// <param name="input">The input with the board to set up</param>
+        public void FillBoard(string input)
         {
             var FirstPosition = 0;
-            var Max = getHeight() - 1;
-            var leng = getWidth() - 1;
+            var Max = GetHeight() - 1;
+            var leng = GetWidth() - 1;
 
             for (var i = 0; i < leng; i++) //Seleccionamos la columna 
             {
-                var column = input.Substring(FirstPosition, getHeight());
+                var column = input.Substring(FirstPosition, GetHeight());
                 var helper = 0;
                 for (var j = Max; j >= 0; j--) //Seleccionamos la columna 
                 {
                     BoardMatrix[j, i] = column[helper];
                     helper++;
                 }
-                FirstPosition += getHeight();
+                FirstPosition += GetHeight();
             }
         }
 
-        public void drawBoard()
-        {
-            for (int i = 0; i < this.getHeight(); i++)
-            {
-                for (int j = 0; j < this.getWidth(); j++)
-                {
-                    Console.Write(this.BoardMatrix[i, j] + " ");
-                }
-                Console.WriteLine("");
-            }
-        }
-
-        public List<List<int[]>> findWinningChains()
+        /// <summary>
+        /// Finds all the winning chains inside the board
+        /// </summary>
+        /// <returns>A List containig Lists that contains the arrays in which we have the positions for a winning chain </returns>
+        public List<List<int[]>> FindWinningChains()
         {
             List<List<int[]>> foundPositions = new List<List<int[]>>();
 
             // horizontalCheck 
-            for (int j = 0; j < (getHeight()-1) - 3; j++)
+            for (int j = 0; j < (GetHeight()-1) - 3; j++)
             {
-                for (int i = 0; i < getWidth()-1; i++)
+                for (int i = 0; i < GetWidth()-1; i++)
                 {
                     if (BoardMatrix[i, j] != 'X' &&
                         BoardMatrix[i, j + 1] == BoardMatrix[i, j] &&
@@ -79,9 +76,9 @@ namespace Connect4.Classes.Implementation
                 }
             }
             // verticalCheck
-            for (int i = 0; i < (getWidth()-1) - 3; i++)
+            for (int i = 0; i < (GetWidth()-1) - 3; i++)
             {
-                for (int j = 0; j < getHeight()-1; j++)
+                for (int j = 0; j < GetHeight()-1; j++)
                 {
                     if (BoardMatrix[i, j] != 'X' &&
                         BoardMatrix[i + 1, j] == BoardMatrix[i, j] &&
@@ -101,9 +98,9 @@ namespace Connect4.Classes.Implementation
                 }
             }
             // ascendingDiagonalCheck 
-            for (int i = 3; i < getWidth()-1; i++)
+            for (int i = 3; i < GetWidth()-1; i++)
             {
-                for (int j = 0; j < (getHeight()-1) - 3; j++)
+                for (int j = 0; j < (GetHeight()-1) - 3; j++)
                 {
                     if (BoardMatrix[i, j] != 'X' &&
                         BoardMatrix[i - 1, j + 1] == BoardMatrix[i, j] &&
@@ -122,9 +119,9 @@ namespace Connect4.Classes.Implementation
                 }
             }
             // descendingDiagonalCheck
-            for (int i = 3; i < getWidth()-1; i++)
+            for (int i = 3; i < GetWidth()-1; i++)
             {
-                for (int j = 3; j < getHeight()-1; j++)
+                for (int j = 3; j < GetHeight()-1; j++)
                 {
                     if (BoardMatrix[i, j] != 'X' &&
                         BoardMatrix[i - 1, j - 1] == BoardMatrix[i, j] &&
@@ -148,15 +145,5 @@ namespace Connect4.Classes.Implementation
             return foundPositions;
         }
 
-        public void fillWithX()
-        {
-            for (int i = 0; i < this.getHeight(); i++)
-            {
-                for (int j = 0; j < this.getWidth(); j++)
-                {
-                    this.BoardMatrix[i, j] = 'X';
-                }
-            }
-        }
     }
 }

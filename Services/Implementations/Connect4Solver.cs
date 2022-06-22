@@ -15,14 +15,12 @@ namespace Connect4.Services.Implementations
             this.postConditions = postConditions;    
         }
 
-        public string solve(string input)
+        public string Solve(string input)
         {
             Board board = new(6, 7);
             checkValidInput.CheckPrecondition(input,board);
-            board.fillBoard(input);
-            board.drawBoard();
-            return postConditions.checkAllPostConditions(board.findWinningChains(), board);
-
+            board.FillBoard(input);
+            return postConditions.CheckAllPostConditions(board.FindWinningChains(), board);
         }
     }
 }

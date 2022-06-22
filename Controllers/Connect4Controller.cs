@@ -16,7 +16,7 @@ namespace Connect4.Controllers
         [HttpGet("api/connect-four/{input}")]
         public string Get(string input)
         {
-            return connect4Solver.solve(input);
+            return connect4Solver.Solve(input);
         }
     }
 }

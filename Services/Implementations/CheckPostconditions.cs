@@ -15,7 +15,7 @@ namespace Connect4.Services.Implementations
         /// <param name="chains"></param>
         /// <returns></returns>
         /// <exception cref="NotImplementedException"></exception>
-        public bool matchingWinningChains(List<List<int[]>> chains, Board board)
+        public bool MatchingWinningChains(List<List<int[]>> chains, Board board)
         {
             foreach (var chain in chains)
             {
@@ -46,7 +46,7 @@ namespace Connect4.Services.Implementations
         /// </summary>
         /// <param name="chains">List of List that contains the positions for the winning chains</param>
         /// <returns></returns>
-        public bool onlyOneWinner(List<List<int[]>> chains, Board board)
+        public bool OnlyOneWinner(List<List<int[]>> chains, Board board)
         {
             var position = chains.First().First();
             var winningTeam = board.BoardMatrix[position[0], position[1]];
@@ -59,27 +59,26 @@ namespace Connect4.Services.Implementations
                 {
                     return false;
                 }
-
             }
             return true;
         }
 
         /// <summary>
-        /// 
+        /// Checks all postConditions to check whether the position is correct
         /// </summary>
         /// <param name="chains"></param>
         /// <returns></returns>
         /// <exception cref="NotImplementedException"></exception>
-        public string checkAllPostConditions(List<List<int[]>> chains, Board board)
+        public string CheckAllPostConditions(List<List<int[]>> chains, Board board)
         {
             if (chains.FirstOrDefault() != null)
             {
-                if (!onlyOneWinner(chains, board))
+                if (!OnlyOneWinner(chains, board))
                 {
                     throw new ArgumentException("Found more than one winner on the board");
                 }
 
-                if (!matchingWinningChains(chains, board))
+                if (!MatchingWinningChains(chains, board))
                 {
                     throw new ArgumentException("Winning chains do not match");
                 }

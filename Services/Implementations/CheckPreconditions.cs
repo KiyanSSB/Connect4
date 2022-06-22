@@ -7,7 +7,7 @@ namespace Connect4.Services.Implementations
     {
 
         /// <summary>
-        /// Checks every precondition to proceed with the finding of winning chains 
+        /// Checks every precondition before proceding 
         /// </summary>
         /// <param name="input">Full string representing the board</param>
         /// <param name="board">The board object</param>
@@ -16,23 +16,23 @@ namespace Connect4.Services.Implementations
         {
             if (!this.NumberOfPositions(input))
             {
-                return false;
+                throw new ArgumentException("The string provided doesnt have 42 wholes");
             }
             
             var startingPosition = 0;
-            for (var i = 0; i < board.getWidth(); i++)
+            for (var i = 0; i < board.GetWidth(); i++)
             {
-                var column = input.Substring(startingPosition, board.getHeight());
+                var column = input.Substring(startingPosition, board.GetHeight());
                 if (!NoFloatingPieces(column))
                 {
-                    return false;
+                    throw new ArgumentException("The board contains floating pieces");
                 }
-                startingPosition += board.getHeight();
+                startingPosition += board.GetHeight();
             }
 
             if (!CorrectNumberPieces(input))
             {
-                return false;
+                throw new ArgumentException("The board contains an inadequate number of pieces");
             }
             return true;
         }
