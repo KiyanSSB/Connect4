@@ -24,8 +24,8 @@ namespace Connect4.Classes.Implementation
         public void fillBoard(string input)
         {
             var FirstPosition = 0;
-            var Max = getHeight()-1;
-            var leng = getWidth()-1;
+            var Max = getHeight() - 1;
+            var leng = getWidth() - 1;
 
             for (var i = 0; i < leng; i++) //Seleccionamos la columna 
             {
@@ -38,7 +38,6 @@ namespace Connect4.Classes.Implementation
                 }
                 FirstPosition += getHeight();
             }
-
         }
 
         public void drawBoard()
@@ -53,68 +52,102 @@ namespace Connect4.Classes.Implementation
             }
         }
 
-        public char whoWins()
+        public List<List<int[]>> findWinningChains()
         {
-            // horizontalCheck 
-            for (int j = 0; j < getHeight() - 3; j++)
-            {
-                for (int i = 0; i < getWidth(); i++)
-                {
+            List<List<int[]>> foundPositions = new List<List<int[]>>();
 
+            // horizontalCheck 
+            for (int j = 0; j < (getHeight()-1) - 3; j++)
+            {
+                for (int i = 0; i < getWidth()-1; i++)
+                {
                     if (BoardMatrix[i, j] != 'X' &&
                         BoardMatrix[i, j + 1] == BoardMatrix[i, j] &&
                         BoardMatrix[i, j + 2] == BoardMatrix[i, j] &&
                         BoardMatrix[i, j + 3] == BoardMatrix[i, j])
                     {
-                        return BoardMatrix[i, j];
+                        List<int[]> list = new List<int[]>()
+                        {
+                            new int[] {i,j},
+                            new int[] {i,j+1},
+                            new int[] {i, j+2},
+                            new int[] {i,j+3}
+                        };
+
+                        foundPositions.Add(list);
                     }
                 }
             }
             // verticalCheck
-            for (int i = 0; i < getWidth() - 3; i++)
+            for (int i = 0; i < (getWidth()-1) - 3; i++)
             {
-                for (int j = 0; j < this.getHeight(); j++)
+                for (int j = 0; j < getHeight()-1; j++)
                 {
                     if (BoardMatrix[i, j] != 'X' &&
                         BoardMatrix[i + 1, j] == BoardMatrix[i, j] &&
                         BoardMatrix[i + 2, j] == BoardMatrix[i, j] &&
                         BoardMatrix[i + 3, j] == BoardMatrix[i, j])
                     {
-                        return BoardMatrix[i, j];
+                        List<int[]> list = new List<int[]>()
+                        {
+                            new int[] {i,j},
+                            new int[] {i+1,j},
+                            new int[] {i+2,j},
+                            new int[] {i+3,j}
+                        };
+
+                        foundPositions.Add(list);
                     }
                 }
             }
             // ascendingDiagonalCheck 
-            for (int i = 3; i < getWidth(); i++)
+            for (int i = 3; i < getWidth()-1; i++)
             {
-                for (int j = 0; j < getHeight() - 3; j++)
+                for (int j = 0; j < (getHeight()-1) - 3; j++)
                 {
                     if (BoardMatrix[i, j] != 'X' &&
                         BoardMatrix[i - 1, j + 1] == BoardMatrix[i, j] &&
                         BoardMatrix[i - 2, j + 2] == BoardMatrix[i, j] &&
                         BoardMatrix[i - 3, j + 3] == BoardMatrix[i, j])
-                        return BoardMatrix[i, j];
+                    {
+                        List<int[]> list = new List<int[]>()
+                        {
+                            new int[] {i,j},
+                            new int[] {i-1,j+1},
+                            new int[] {i-2,j+2},
+                            new int[] {i-3,j+3}
+                        };
+                        foundPositions.Add(list);
+                    }
                 }
             }
             // descendingDiagonalCheck
-            for (int i = 3; i < getWidth(); i++)
+            for (int i = 3; i < getWidth()-1; i++)
             {
-                for (int j = 3; j < getHeight(); j++)
+                for (int j = 3; j < getHeight()-1; j++)
                 {
                     if (BoardMatrix[i, j] != 'X' &&
                         BoardMatrix[i - 1, j - 1] == BoardMatrix[i, j] &&
                         BoardMatrix[i - 2, j - 2] == BoardMatrix[i, j] &&
                         BoardMatrix[i - 3, j - 3] == BoardMatrix[i, j])
-                        return BoardMatrix[i, j];
+
+                    {
+                        List<int[]> list = new List<int[]>()
+                        {
+                            new int[] {i,j},
+                            new int[] {i-1,j+1},
+                            new int[] {i-2,j+2},
+                            new int[] {i-3,j+3}
+                        };
+
+                        foundPositions.Add(list);
+                    }
                 }
             }
-            return 'X';
+
+            return foundPositions;
         }
 
-        
-        
-        
-        
         public void fillWithX()
         {
             for (int i = 0; i < this.getHeight(); i++)
@@ -124,16 +157,6 @@ namespace Connect4.Classes.Implementation
                     this.BoardMatrix[i, j] = 'X';
                 }
             }
-        }
-
-        public bool doesWin(char team)
-        {
-            throw new NotImplementedException();
-        }
-
-        public string winningTeam()
-        {
-            throw new NotImplementedException();
         }
     }
 }

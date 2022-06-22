@@ -7,9 +7,9 @@ namespace Connect4.Controllers
     public class Connect4Controller : Controller
     {
         public readonly IConnect4Solver connect4Solver;
-        public readonly ICheckValidInput checkValidInput;
+        public readonly ICheckPreconditions checkValidInput;
 
-        public Connect4Controller(IConnect4Solver connect4Solver, ICheckValidInput checkValidInput)
+        public Connect4Controller(IConnect4Solver connect4Solver, ICheckPreconditions checkValidInput)
         {
             this.connect4Solver = connect4Solver;
             this.checkValidInput = checkValidInput;
@@ -18,7 +18,7 @@ namespace Connect4.Controllers
         [HttpGet("api/connect-four/{input}")]
         public string Get(string input)
         {
-            return (this.connect4Solver.solve(input));
+            return connect4Solver.solve(input);
         }
     }
 }

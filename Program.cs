@@ -11,7 +11,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddTransient<IConnect4Solver, Connect4Solver>();
-builder.Services.AddTransient<ICheckValidInput,CheckValidInput>();
+builder.Services.AddTransient<ICheckPreconditions,CheckPreconditions>();
+builder.Services.AddTransient<ICheckPostconditions, CheckPostconditions>();
 
 var app = builder.Build();
 
