@@ -9,26 +9,24 @@ namespace Connect4.Services.Implementations
         {
         }
 
-
-
         /// <summary>
-        /// 
+        /// Checks whether the winning chains share at least one position in common so they are plausible to be a correct position on the board
         /// </summary>
         /// <param name="chains"></param>
         /// <returns></returns>
         /// <exception cref="NotImplementedException"></exception>
-        public bool matchingWinningChains(List<List<int[]>> chains, Board board)
+        public bool MatchingWinningChains(List<List<int[]>> chains, Board board)
         {
             foreach (var chain in chains)
             {
                 var shared = false;
-                foreach(var position in chain)
+                foreach (var position in chain)
                 {
-                    foreach(var restOfchains in chains)
+                    foreach (var restOfchains in chains)
                     {
                         if (restOfchains.Contains(position))
                         {
-                            shared = true ;
+                            shared = true;
                             break; //If its shared once theres no point in keep checking
                         }
                     }
@@ -44,51 +42,45 @@ namespace Connect4.Services.Implementations
 
 
         /// <summary>
-        /// 
+        /// Checks whether theres only one team in the winning chains
         /// </summary>
-        /// <param name="chains"></param>
+        /// <param name="chains">List of List that contains the positions for the winning chains</param>
         /// <returns></returns>
-        public bool onlyOneWinner(List<List<int[]>> chains, Board board)
+        public bool OnlyOneWinner(List<List<int[]>> chains, Board board)
         {
-            var winner = chains.FirstOrDefault();
-            if(winner != null)
+            var position = chains.First().First();
+            var winningTeam = board.BoardMatrix[position[0], position[1]];
+
+            foreach (var chain in chains)
             {
-                var position = winner.First();
-                var winningTeam = board.BoardMatrix[position[0], position[1]];
+                position = chain.First();
 
-                foreach(var chain in chains)
+                if (winningTeam != board.BoardMatrix[position[0], position[1]])
                 {
-                    position = chain.First();
-
-                    if(winningTeam != board.BoardMatrix[position[0], position[1]])
-                    {
-                        return false;
-                    }
-
+                    return false;
                 }
             }
             return true;
         }
 
         /// <summary>
-        /// 
+        /// Checks all postConditions to check whether the position is correct
         /// </summary>
         /// <param name="chains"></param>
         /// <returns></returns>
         /// <exception cref="NotImplementedException"></exception>
-        public string checkAllPostConditions(List<List<int[]>> chains, Board board)
+        public string CheckAllPostConditions(List<List<int[]>> chains, Board board)
         {
-
-            if(chains.FirstOrDefault() != null)
+            if (chains.FirstOrDefault() != null)
             {
-                if (!onlyOneWinner(chains, board))
+                if (!OnlyOneWinner(chains, board))
                 {
-                    throw new Exception("Found more than one winner on the board");
+                    throw new ArgumentException("Found more than one winner on the board");
                 }
 
-                if (!matchingWinningChains(chains, board))
+                if (!MatchingWinningChains(chains, board))
                 {
-                    throw new Exception("Winning chains do not match");
+                    throw new ArgumentException("Winning chains do not match");
                 }
 
                 var position = chains.First().First();
@@ -98,6 +90,6 @@ namespace Connect4.Services.Implementations
             {
                 return "X";
             }
-       }
+        }
     }
 }

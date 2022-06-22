@@ -2,6 +2,6 @@
 {
     public interface IConnect4Solver
     {
-        public string solve(string input);
+        public string Solve(string input);
     }
 }
