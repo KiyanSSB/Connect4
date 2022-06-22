@@ -17,7 +17,7 @@ namespace Connect4.Services.Implementations
 
         public string solve(string input)
         {
-            Board board = new Board(6, 7);
+            Board board = new(6, 7);
             checkValidInput.CheckPrecondition(input,board);
             board.fillBoard(input);
             board.drawBoard();
