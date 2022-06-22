@@ -132,9 +132,9 @@ namespace Connect4.Classes.Implementation
                         List<int[]> list = new List<int[]>()
                         {
                             new int[] {i,j},
-                            new int[] {i-1,j+1},
-                            new int[] {i-2,j+2},
-                            new int[] {i-3,j+3}
+                            new int[] {i-1,j-1},
+                            new int[] {i-2,j-2},
+                            new int[] {i-3,j-3}
                         };
 
                         foundPositions.Add(list);
