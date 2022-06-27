@@ -20,6 +20,7 @@ namespace Connect4.Services.Implementations
             Board board = new(6, 7);
             checkValidInput.CheckPrecondition(input,board);
             board.FillBoard(input);
+            board.DrawBoard();
             return postConditions.CheckAllPostConditions(board.FindWinningChains(), board);
         }
     }

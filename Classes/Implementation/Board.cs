@@ -145,5 +145,18 @@ namespace Connect4.Classes.Implementation
             return foundPositions;
         }
 
+
+
+        public void DrawBoard()
+        {
+            for (int i = 0; i < this.GetHeight(); i++)
+            {
+                for (int j = 0; j < this.GetWidth(); j++)
+                {
+                    Console.Write(this.BoardMatrix[i, j] + " ");
+                }
+                Console.WriteLine("");
+            }
+        }
     }
 }

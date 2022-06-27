@@ -24,10 +24,16 @@ namespace Connect4.Services.Implementations
                 {
                     foreach (var restOfchains in chains)
                     {
-                        if (restOfchains.Contains(position))
+                        if(restOfchains != chain)
                         {
-                            shared = true;
-                            break; //If its shared once theres no point in keep checking
+                            for(int i = 0; i < restOfchains.LongCount(); i++)
+                            {
+                                if (position[0] == restOfchains[i][0] && position[1] == restOfchains[i][1])
+                                {
+                                    shared = true;
+                                    break; //If its shared once theres no point in keep on checking
+                                }
+                            }
                         }
                     }
                 }

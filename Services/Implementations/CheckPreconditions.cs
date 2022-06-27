@@ -39,7 +39,7 @@ namespace Connect4.Services.Implementations
         
         /// <summary>
         ///  To check whether the pieces are floating or not we check the first position of a theoretical X inside the string
-        ///  If there is no string, the position should be posible
+        ///  If there is no X in the string, the position should be posible
         ///  If there is an X , we check whether the next positions contains either an A or B , in that case the position is not possible 
         /// </summary>
         /// <param name="input">Substring representing a column inside the board</param>
