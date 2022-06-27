@@ -24,9 +24,9 @@ namespace Connect4.Services.Implementations
                 {
                     foreach (var restOfchains in chains)
                     {
-                        if(restOfchains != chain)
+                        if (restOfchains != chain)
                         {
-                            for(int i = 0; i < restOfchains.LongCount(); i++)
+                            for (int i = 0; i < restOfchains.LongCount(); i++)
                             {
                                 if (position[0] == restOfchains[i][0] && position[1] == restOfchains[i][1])
                                 {
@@ -79,14 +79,20 @@ namespace Connect4.Services.Implementations
         {
             if (chains.FirstOrDefault() != null)
             {
-                if (!OnlyOneWinner(chains, board))
+                if (chains.Count() > 1)
                 {
-                    throw new ArgumentException("Found more than one winner on the board");
+                    if (!OnlyOneWinner(chains, board))
+                    {
+                        throw new ArgumentException("Found more than one winner on the board");
+                    }
                 }
 
-                if (!MatchingWinningChains(chains, board))
+                if (chains.Count() > 1)
                 {
-                    throw new ArgumentException("Winning chains do not match");
+                    if (!MatchingWinningChains(chains, board))
+                    {
+                        throw new ArgumentException("Winning chains do not match");
+                    }
                 }
 
                 var position = chains.First().First();

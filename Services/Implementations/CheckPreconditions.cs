@@ -18,16 +18,19 @@ namespace Connect4.Services.Implementations
             {
                 throw new ArgumentException("The string provided doesnt have 42 wholes");
             }
-            
-            var startingPosition = 0;
-            for (var i = 0; i < board.GetWidth(); i++)
+
+            if (input.Contains('X'))
             {
-                var column = input.Substring(startingPosition, board.GetHeight());
-                if (!NoFloatingPieces(column))
+                var startingPosition = 0;
+                for (var i = 0; i < board.GetWidth(); i++)
                 {
-                    throw new ArgumentException("The board contains floating pieces");
+                    var column = input.Substring(startingPosition, board.GetHeight());
+                    if (!NoFloatingPieces(column))
+                    {
+                        throw new ArgumentException("The board contains floating pieces");
+                    }
+                    startingPosition += board.GetHeight();
                 }
-                startingPosition += board.GetHeight();
             }
 
             if (!CorrectNumberPieces(input))
